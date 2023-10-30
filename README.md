@@ -13,8 +13,8 @@ Remote sensor to interact with WAQD https://github.com/goszpeti/WeatherAirQualit
 ## Used Hardware
 
 - Raspberry Pi Pico
-- Pimoroni Pico Wireless Pack (ESP32)
-- DHT22
+- Pimoroni Pico Wireless Pack (ESP32) or Pico W
+- DHT22 or BME280
 - USB Powerbank
 
 ## Wiring
@@ -24,8 +24,8 @@ Remote sensor to interact with WAQD https://github.com/goszpeti/WeatherAirQualit
 
 ## Software setup
 
-* Flash CircuitPython 7.X on the Pico with the following instructions: https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython
-* Get CircuiPython 7.x libs from https://circuitpython.org/libraries
+* Flash CircuitPython 8.X on the Pico with the following instructions: https://learn.adafruit.com/getting-started-with-raspberry-pi-pico-circuitpython/circuitpython
+* Get CircuiPython 8.x libs from https://circuitpython.org/libraries
 * Copy the following files/directories to the Picos lib folder:
  * adafruit_dht.mpy
  * adafruit_requests.mpy
