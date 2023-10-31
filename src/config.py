@@ -6,7 +6,6 @@
 
 config = {
     "waqd_url": "", # IP 
-    "waqd_api_key": "",
     "waqd_mode": 1, # 0=interior, 1=exterior
     "wifi_mode": "integrated", # or esp32 or None
     "sensor": "BME280",
@@ -15,5 +14,6 @@ config = {
 }
 secrets = {
     "ssid": "",
-    "password": ""
+    "password": "",
+    "waqd_api_key": ""
 }

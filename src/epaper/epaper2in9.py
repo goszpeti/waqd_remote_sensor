@@ -27,8 +27,17 @@
  #
 
 import time
+import board
 
 from . import epdif
+
+RST_PIN = board.GP6
+BUSY_PIN = board.GP5
+DC_PIN = board.GP8
+CS_PIN = board.GP13
+SPI_MOSI = board.GP4
+SPI_CLK = board.GP3
+SPI_BUS = None
 
 # EPD2IN9 commands
 DRIVER_OUTPUT_CONTROL                       = 0x01

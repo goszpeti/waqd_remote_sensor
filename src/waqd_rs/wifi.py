@@ -87,11 +87,16 @@ class WeatherStationWifiSensor():
         self._waqd_url = waqd_url
         self._waqd_api_key = waqd_api_key
         self._waqd_reachable = False
-        if wifi_mode == "esp32":
+        self._enabled = True
+        if wifi_mode.lower() == "esp32":
             from waqd_rs.wifi import Esp32WifiClient
             self._wifi_client = Esp32WifiClient()
-        elif wifi_mode == "integrated":
+        elif wifi_mode.lower() == "integrated":
             self._wifi_client = IntegratedWifiClient()
+        elif wifi_mode.lower() == "none":
+            self._enabled = False
+            print("Wifi disabled!")
+            return
         else:
             print("Wifi mode invalid!")
             return
@@ -100,6 +105,8 @@ class WeatherStationWifiSensor():
 
 
     def post_rs_values(self, temp, hum, pressure, mode):
+        if not self._enabled:
+            return
         if not self._waqd_reachable:
             self._wifi_client.check_connection(self._waqd_url)
             return

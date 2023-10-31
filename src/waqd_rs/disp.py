@@ -14,7 +14,7 @@ class WaveShare2in9Disp():
         print("Clear display...")
         self.epd.clear_frame_memory(0xff)
         self.epd.display_frame()
-        self.buf = bytearray(128 * 296 // 8)
+        self.buf = bytearray(self.epd.width * self.epd.height // 8)
         self.fb = adafruit_framebuf.FrameBuffer(self.buf, self.epd.width, self.epd.height, adafruit_framebuf.MHMSB)
         self.fb.rotation = 2 # 180 deg
         self._text_line_pix = 0
@@ -43,14 +43,14 @@ class WaveShare2in9Disp():
         self._text_line_pix += 5
 
     def draw_footer(self):
-        self.fb.text("(c)2022 WAQD Project", 5, 280, color=BLACK, size=1)
-        self.fb.text("Peter Gosztolya", 5, 288, color=BLACK, size=1)
+        self.fb.text("(c)2023 WAQD Project", 5, 280, color=BLACK, size=1)
+        self.fb.text("Péter Gosztolya", 5, 288, color=BLACK, size=1)
 
     def draw_hline(self):
         self.fb.hline(0,self._text_line_pix + 3,self.epd.width, BLACK)
         self._text_line_pix += 5
 
-    def draw_main(self, temp: float, hum: float, mode: int):
+    def draw_main(self, temp: float, hum: float, co2:float, mode: int):
         self.fb.fill(WHITE) # size 6? -> +7
         self._reset_text_lines()
         self.draw_header()
@@ -60,8 +60,14 @@ class WaveShare2in9Disp():
         self._write_text("Humidity")
         self._write_text("{:3.1f}%\n".format(hum))
         self.draw_hline()
-        self._write_text("Mode")
-        self._write_text("Exterior")
+        # self._write_text("Mode")
+        # self._write_text("Exterior")
+        # self.draw_hline()
+        # self._write_text("Ip Address")
+        # self._write_text("TODO")
+        # self.draw_hline()
+        self._write_text("CO2")
+        self._write_text("{:3} ppm\n".format(co2))
         self.draw_hline()
         now = time.localtime()
         self._write_text("Last Update")
@@ -69,3 +75,4 @@ class WaveShare2in9Disp():
         self._write_text(self.format_time(now))
         self.draw_footer()
         self.epd.display_frame_buf(self.buf, True)
+        self.epd.sleep()

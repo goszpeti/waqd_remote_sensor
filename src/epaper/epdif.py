@@ -30,23 +30,19 @@ import adafruit_bus_device.spi_device
 import board
 import digitalio
 
-# Pin definition as hooked up on my Metro M4 (reassigned to instances in init)
-# These pins are also present on the ItsyBitsy M4
-RST_PIN = board.GP6
-BUSY_PIN = board.GP5
+# Pin definitions
+RST_PIN = board.GP12
+BUSY_PIN = board.GP13
 DC_PIN = board.GP8
-CS_PIN = board.GP13
-
-#_SPI_MOSI = board.MOSI
-#_SPI_CLK = board.SCK
-_SPI_MOSI = board.GP4
-_SPI_CLK = board.GP3
-_SPI_BUS = None
+CS_PIN = board.GP9
+SPI_MOSI = board.GP11
+SPI_CLK = board.GP10
+SPI_BUS = None
 _init = False
 
 
 def spi_transfer(data):
-    with _SPI_BUS as device:
+    with SPI_BUS as device:
         device.write(data)
 
 def epd_io_bus_init():
@@ -66,16 +62,16 @@ def epd_io_bus_init():
     CS_PIN.direction = OUTPUT
     BUSY_PIN = DInOut(BUSY_PIN)
     BUSY_PIN.direction = INPUT
-    global _SPI_BUS
+    global SPI_BUS
     # bus vs bitbang isn't really important for slow displays, detecting
     # when to use one vs the other is overkill...
-    if (_SPI_CLK == getattr(board, 'SCK', None) and
-        _SPI_MOSI == getattr(board, 'MOSI', None)):
+    if (SPI_CLK == getattr(board, 'SCK', None) and
+        SPI_MOSI == getattr(board, 'MOSI', None)):
         import busio as io_module
     else:
         import bitbangio as io_module
-    _SPI_BUS = adafruit_bus_device.spi_device.SPIDevice(
-            io_module.SPI(_SPI_CLK, _SPI_MOSI), CS_PIN,
+    SPI_BUS = adafruit_bus_device.spi_device.SPIDevice(
+            io_module.SPI(SPI_CLK, SPI_MOSI), CS_PIN,
             baudrate=2000000)
 
 ### END OF FILE ###

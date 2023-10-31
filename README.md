@@ -21,6 +21,7 @@ Remote sensor to interact with WAQD https://github.com/goszpeti/WeatherAirQualit
 
 * ESP32: https://cdn.shopify.com/s/files/1/0174/1800/files/pico-wireless-pinout-diagram_600x600.png?v=1620826291
 * DHT22 with GP27
+* BME280 with GP27 for SCL and GP26 for SDA
 
 ## Software setup
 
